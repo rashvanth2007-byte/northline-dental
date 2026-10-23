@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en-IN" data-theme="sage">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Ccircle%20cx='16'%20cy='16'%20r='16'%20fill='%233E7C6B'/%3E%3Cpath%20d='M9%2024V8h3.200l7.600%2010.600V8H23v16h-3.200L12.200%2013.400V24z'%20fill='%23FFFFFF'/%3E%3C/svg%3E">
+  <title>Privacy Policy | Northline Dental Co.</title>
+  <meta name="description" content="How Northline Dental Co. collects, uses and protects the personal information you share with us.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@500..800&amp;family=Figtree:wght@400..700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Legal page layout (kept here so these pages read well on their own). Colours follow the
+       theme tokens in css/styles.css (--brand etc.) when present, with the sage defaults as fallback. -->
+  <style>
+    .lp { --lp-bg: #FFFFFF; --lp-soft: var(--soft, #F4F9F6); --lp-ink: var(--ink, #172033); --lp-text: var(--text, #3D4656);
+          --lp-muted: var(--muted, #5C6577); --lp-line: var(--line, #E4E7EE);
+          --lp-brand: var(--brand, #1F7A5C); --lp-brand-deep: var(--brand-deep, #165C45); --lp-tint: var(--brand-tint, #E2F3EB);
+          --lp-head: "Baloo Thambi 2", "Figtree", "Segoe UI", system-ui, sans-serif;
+          --lp-body: "Figtree", "Segoe UI", system-ui, sans-serif; }
+    html, body.lp { background: #FFFFFF; }
+    body.lp { margin: 0; color: var(--lp-text); font: 400 1.0625rem/1.65 var(--lp-body); -webkit-text-size-adjust: 100%; }
+    .lp *, .lp *::before, .lp *::after { box-sizing: border-box; }
+    .lp a:focus-visible { outline: 3px solid var(--lp-brand); outline-offset: 3px; border-radius: 6px; }
+    .lp__wrap { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px); }
+    .lp__head { background: #FFFFFF; border-bottom: 1px solid var(--lp-line); box-shadow: 0 1px 2px rgba(23,32,51,.04); }
+    .lp__head .lp__wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px 16px; min-height: 72px; flex-wrap: wrap; padding-block: 10px; }
+    .lp__logo { display: inline-flex; align-items: center; gap: 10px; color: var(--lp-ink); text-decoration: none; min-height: 44px; }
+    .lp__mark { position: relative; display: grid; place-items: center; flex: none; width: 42px; height: 42px; border-radius: 50%; background: var(--lp-brand); color: #fff; }
+    .lp__mark::after { content: ""; position: absolute; right: -3px; top: -3px; width: 13px; height: 13px; border-radius: 50%; background: var(--s1, #F6A623); box-shadow: 0 0 0 2px #fff; }
+    .lp__mark svg { width: 22px; height: 22px; display: block; }
+    .lp__name { font: 600 1.2rem/1 var(--lp-head); letter-spacing: -.01em; }
+    .lp__suffix { font: 500 .85rem/1 var(--lp-body); color: var(--lp-muted); }
+    .lp__back { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 18px; border: 1px solid var(--lp-line);
+                border-radius: 999px; background: #fff; font: 600 .9rem/1 var(--lp-head); color: var(--lp-ink); text-decoration: none;
+                transition: border-color .2s, color .2s, background-color .2s; }
+    .lp__back:hover { border-color: var(--lp-brand); color: var(--lp-brand-deep); background: var(--lp-tint); }
+    .lp__main { padding: clamp(40px, 7vw, 88px) 0 clamp(56px, 8vw, 104px); }
+    .lp__doc { max-width: 72ch; margin: 0 auto; }
+    .lp h1 { margin: 0; color: var(--lp-ink); font: 700 clamp(2.1rem, 4.6vw, 3rem)/1.15 var(--lp-head); letter-spacing: -.01em; overflow-wrap: anywhere; }
+    .lp__updated { margin: 12px 0 0; font: 400 .95rem/1.5 var(--lp-body); color: var(--lp-muted); }
+    .lp__note { margin: 24px 0 0; padding: 14px 18px; background: var(--lp-tint); border-radius: var(--r-md, 12px);
+                font: 400 .95rem/1.55 var(--lp-body); color: var(--lp-ink); }
+    .lp h2 { margin: 48px 0 12px; color: var(--lp-ink);
+             font: 600 clamp(1.25rem, 2.6vw, 1.5rem)/1.3 var(--lp-head); letter-spacing: -.01em; }
+    .lp p, .lp ul { margin: 0 0 14px; }
+    .lp ul { padding-left: 1.3em; }
+    .lp li { margin-bottom: 8px; }
+    .lp li::marker { color: var(--lp-brand); }
+    .lp strong { color: var(--lp-ink); font-weight: 700; }
+    .lp__doc a:not(.lp__btn) { color: var(--lp-brand-deep); font-weight: 600; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    .lp__doc a:not(.lp__btn):hover { color: var(--lp-ink); }
+    .lp__btn { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; margin-top: 36px; padding: 0 24px;
+               background: var(--lp-brand); color: #fff; border: 0; border-radius: 999px; text-decoration: none;
+               font: 600 .95rem/1 var(--lp-head); box-shadow: var(--shadow-1, 0 1px 2px rgba(23,32,51,.04), 0 4px 14px -8px rgba(23,32,51,.14));
+               transition: background-color .2s; }
+    .lp__btn:hover { background: var(--lp-brand-deep); }
+    .lp__foot { background: var(--lp-soft); border-top: 1px solid var(--lp-line); padding: 22px 0 28px; font: 400 .9rem/1.6 var(--lp-body); color: var(--lp-muted); }
+    .lp__foot a { color: var(--lp-brand-deep); font-weight: 600; }
+    @media (prefers-reduced-motion: reduce) { .lp * { transition: none !important; animation: none !important; } }
+    @media print { .lp__head, .lp__btn { display: none; } .lp__doc { max-width: none; } }
+  </style>
+</head>
+<body class="lp">
+
+<header class="lp__head">
+  <div class="lp__wrap">
+    <a href="index.html" class="lp__logo notranslate" translate="no" aria-label="Home page">
+      <span class="lp__mark" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7.2 3.6c1.8-.8 3.1.4 4.8.4s3-1.2 4.8-.4c2.3 1 2.5 4.2 1.6 7.1-.7 2.4-1.3 6.3-2.8 6.3s-1.2-4.5-3.6-4.5-2.1 4.5-3.6 4.5-2.1-3.9-2.8-6.3c-.9-2.9-.7-6.1 1.6-7.1z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" transform="translate(0 1.5)"/></svg></span>
+      <span class="lp__name" data-site="name">Northline</span>
+      <span class="lp__suffix" data-site="suffix">Dental Co.</span>
+    </a>
+    <a href="index.html" class="lp__back">&larr; Back to site</a>
+  </div>
+</header>
+
+<main id="main" class="lp__main">
+  <div class="lp__wrap">
+    <article class="lp__doc">
+      <h1>Privacy policy</h1>
+      <p class="lp__updated">Last updated: <!-- EDIT: date -->21 October 2026</p>
+      <!-- EDIT: this is a sample policy. Have the clinic review it (ideally with a lawyer) and remove this note. -->
+      <p class="lp__note">Sample policy for this website template. The clinic should review and adapt it before the site goes live.</p>
+
+      <h2>Who we are</h2>
+      <p><span data-site="legalName" translate="no">Northline Dental Co.</span> ("we", "us") runs this website and the dental clinic at <span data-site="addressLine1">14, D.B. Road, R.S. Puram</span><span data-site-row>, <span data-site="addressLine2">Coimbatore, Tamil Nadu 641002</span></span>. This policy explains how we handle personal information shared through this website, in line with the Digital Personal Data Protection Act, 2023.</p>
+
+      <h2>What we collect</h2>
+      <ul>
+        <li><strong>Appointment requests:</strong> your name, mobile number, the treatment you are interested in, your preferred date and time, and anything you choose to write in the message box.</li>
+        <li><strong>Messages and calls:</strong> whatever you share with us when you contact us by WhatsApp, phone or email.</li>
+        <li><strong>Language preference:</strong> if you choose a language from the menu, your browser remembers that choice on your device. We do not receive it.</li>
+      </ul>
+      <p>We do not use advertising trackers or sell your information.</p>
+
+      <h2>How we use it</h2>
+      <p>Only to arrange and confirm your appointment, answer your questions, and contact you about your visit. Information you share about your health is treated as confidential and handled by our clinical team only.</p>
+
+      <h2>Services from other companies</h2>
+      <ul>
+        <li><strong>WhatsApp:</strong> when you send an appointment request, the form opens WhatsApp with your details filled in. WhatsApp's own privacy policy applies to that message.</li>
+        <li><strong>Google Maps:</strong> the map on our page is provided by Google.</li>
+        <li><strong>Google Translate:</strong> only if you choose another language, the page text is sent to Google for translation, including any text you have typed into the form at that time.</li>
+        <li><strong>Google Fonts:</strong> the website's typefaces are loaded from Google's servers.</li>
+      </ul>
+
+      <h2>How long we keep it</h2>
+      <p>Appointment requests are kept only as long as needed to arrange your visit. Treatment records are kept as required by the rules that apply to dental practices in India.</p>
+
+      <h2>Your rights</h2>
+      <p>You can ask us to see, correct or delete the personal information you have shared with us, or withdraw your consent, by contacting us using the details below.</p>
+
+      <h2>Contact</h2>
+      <p>Call <a data-site-href="phone" href="tel:+919894012345" data-site="phone">+91 98940 12345</a><span data-site-row> or email <a data-site-href="email" href="mailto:hello@northline.dental" data-site="email" translate="no">hello@northline.dental</a></span>.</p>
+
+      <a href="index.html" class="lp__btn">&larr; Back to the home page</a>
+    </article>
+  </div>
+</main>
+
+<footer class="lp__foot">
+  <div class="lp__wrap">© <span data-year>2026</span> <span data-site="legalName" translate="no">Northline Dental Co.</span> · <a href="terms.html">Terms of use</a></div>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/demo.js"></script>
+<script src="js/legal.js"></script>
+</body>
+</html>
