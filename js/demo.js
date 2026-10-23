@@ -13,7 +13,8 @@
      address   street address            phone    clinic phone (a mobile also gets WhatsApp)
      wa        WhatsApp number, if it isn't the phone above
      doctor    dentist's name            qual     their qualification, e.g. BDS, MDS (Endodontics)
-     photo     man | woman: sample photo on the dentist's card (for single-dentist demos)
+     photo     silhouette | woman: sample photo on the dentist's card (for single-dentist demos;
+               the older man still works, and shows the silhouette)
      theme     sage | clay | mist | olive
                (the older names lagoon | sapphire | plum | forest still work)
      specialists, equipment, prices   0 switches that part off (see "features" in config.js)
@@ -113,9 +114,8 @@
     SITE.doctorQualification = param('qual') || '';
     SITE.doctorNote = '';
   }
-  // the second sample doctor is a man, the first a woman
-  var photos = document.querySelectorAll('.doctor img');
-  if (param('photo') === 'man' && photos[1]) SITE.doctorPhoto = photos[1].getAttribute('src');
+  // a faceless profile picture instead of the sample woman ("man" from older links too)
+  if (/^(silhouette|man)$/.test(param('photo') || '')) SITE.doctorPhoto = 'assets/img/doctor-silhouette.svg';
 
   var hero = document.querySelector('.hero'); // only on the main page
   // "Sri Smile Dental Clinic | Coimbatore", but "Sri Saai | Dental Clinic in Rasipuram"

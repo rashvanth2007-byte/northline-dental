@@ -81,7 +81,11 @@
 
   // demo links can name the first doctor and pick their sample photo
   var doctorImg = $('.doctor img');
-  if (doctorImg && SITE.doctorPhoto) doctorImg.setAttribute('src', SITE.doctorPhoto);
+  // (srcset goes too, or the browser keeps showing the sample photo)
+  if (doctorImg && SITE.doctorPhoto) {
+    doctorImg.removeAttribute('srcset');
+    doctorImg.setAttribute('src', SITE.doctorPhoto);
+  }
   if (doctorImg && SITE.doctorName) doctorImg.setAttribute('alt', 'Portrait of ' + SITE.doctorName);
 
   var social = SITE.social || {};

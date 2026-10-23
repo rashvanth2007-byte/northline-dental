@@ -141,7 +141,7 @@
         <p class="label">Sample photo</p>
         <div class="seg" role="radiogroup" aria-label="Sample photo">
           <label><input type="radio" name="photo" value="woman" checked><span>Woman</span></label>
-          <label><input type="radio" name="photo" value="man"><span>Man</span></label>
+          <label><input type="radio" name="photo" value="silhouette"><span>Silhouette</span></label>
         </div>
       </div>
 
@@ -207,7 +207,7 @@
     if (sub !== 'Dental Clinic') p.set('sub', sub);
     ['town', 'area', 'phone', 'wa', 'address', 'doctor', 'qual'].forEach(function (k) { if (val(k)) p.set(k, val(k)); });
     if (single) p.set('specialists', '0');
-    if (single && form.elements.photo.value === 'man') p.set('photo', 'man');
+    if (single && form.elements.photo.value === 'silhouette') p.set('photo', 'silhouette');
     if (!form.elements.equipment.checked) p.set('equipment', '0');
     if (form.elements.prices.checked) p.set('prices', '1'); // fees are off unless asked for
     if (form.elements.theme.value !== DEFAULT_THEME) p.set('theme', form.elements.theme.value);

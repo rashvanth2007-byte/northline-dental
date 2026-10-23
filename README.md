@@ -82,7 +82,7 @@ Search for `EDIT:` to jump to each block:
 - The concern chips (see "Treatment icons and concern chips" below)
 - The Fees price list
 - The four commitments, the first-visit steps, FAQs and payment options (UPI apps, cards, cash)
-- Clinic facts: languages spoken (sample: Tamil, English, Malayalam), lift / wheelchair access and parking
+- Clinic facts: languages spoken (sample: Tamil, English, Malayalam), wheelchair access and parking
 - The note under the clinic hours (sample: open 24 hours, Sundays and holidays too; call first on Pongal and Deepavali). If the clinic is **not** open round the clock, also reword the 24/7 lines in the emergency strip, first-visit step ("at any hour"), emergency FAQ, hours note, meta and `og:description` (search for "24" and "any hour"), and remove the "Night (After 8:30)" Preferred Time option if the clinic is closed then. The JSON-LD opening hours follow `js/config.js` on their own
 - Doctors: photo, name, degrees, speciality, years, Tamil Nadu Dental Council registration number (sample "TNDC Reg. No. 0000"), memberships and a factual special-interest line
 - The "Information reviewed by …" lines under the treatments intro and the FAQ intro (dentist's name, degree, registration number and date). The name follows `doctorName` in demo links automatically; ", MDS" shows only while `specialists` is on.
