@@ -274,15 +274,18 @@ h2 .ta::before {
 }
 @media (max-width: 1023px) {
   .menu-btn { display: block; }
+  /* a small dropdown card under the menu button; the page stays visible around it */
   .nav {
-    position: fixed; z-index: 99; left: 0; right: 0; top: var(--header-h); bottom: 0;
-    flex-direction: column; align-items: stretch; gap: 6px;
-    padding: 20px var(--gutter) 120px; overflow-y: auto; background: #fff;
-    opacity: 0; visibility: hidden; transform: translateY(-8px);
-    transition: opacity .25s, transform .4s var(--ease-out), visibility 0s .4s;
+    position: fixed; z-index: 99; top: calc(var(--header-h) + 6px); right: var(--gutter); left: auto; bottom: auto;
+    width: min(280px, calc(100% - 2 * var(--gutter))); max-height: calc(100vh - var(--header-h) - 24px);
+    flex-direction: column; align-items: stretch; gap: 4px;
+    padding: 8px; overflow-y: auto; background: #fff; border-radius: 24px;
+    box-shadow: 0 0 0 1px var(--line), 0 24px 48px -20px rgba(23, 32, 51, .38);
+    opacity: 0; visibility: hidden; transform: translateY(-8px) scale(.97); transform-origin: top right;
+    transition: opacity .2s, transform .35s var(--ease-out), visibility 0s .35s;
   }
-  .nav.is-open { opacity: 1; visibility: visible; transform: none; transition: opacity .25s, transform .4s var(--ease-out), visibility 0s; }
-  .nav__link { min-height: 58px; padding: 0 20px; font-family: var(--font-head); font-size: 1.45rem; font-weight: 700; background: var(--soft); }
+  .nav.is-open { opacity: 1; visibility: visible; transform: none; transition: opacity .2s, transform .35s var(--ease-out), visibility 0s; }
+  .nav__link { min-height: 48px; padding: 0 18px; font-family: var(--font-head); font-size: 1.1rem; font-weight: 700; background: var(--soft); }
   .nav__link:nth-child(4n+2) { background: var(--s1-soft); }
   .nav__link:nth-child(4n+3) { background: var(--s2-soft); }
   .nav__link:nth-child(4n+4) { background: var(--s3-soft); }

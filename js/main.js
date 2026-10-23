@@ -548,6 +548,12 @@
   if (menuBtn && nav) {
     menuBtn.addEventListener('click', function () { toggleMenu(!menuOpen); });
     nav.addEventListener('click', function (e) { if (e.target.closest('a')) toggleMenu(false); });
+    // the menu is a small card over the page: a tap anywhere else closes it (and does nothing else)
+    document.addEventListener('click', function (e) {
+      if (!menuOpen || nav.contains(e.target) || menuBtn.contains(e.target)) return;
+      e.preventDefault(); e.stopPropagation();
+      toggleMenu(false);
+    }, true);
     document.addEventListener('keydown', function (e) {
       if (!menuOpen) return;
       if (e.key === 'Escape' || e.key === 'Esc') { toggleMenu(false, true); return; }
