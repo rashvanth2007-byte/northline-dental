@@ -40,6 +40,8 @@
   if (features.prices === false) $$('[data-price]').forEach(function (el) { el.textContent = 'Ask About Fees'; });
   var sheet = $('.contact-sheet');
   if (sheet) sheet.classList.toggle('doctors--single', $$('.doctor', sheet).length === 1);
+  // a lone dentist's photo shows larger (up to 260px), so the browser should pick the bigger file
+  if (sheet && sheet.classList.contains('doctors--single')) $$('.doctor__photo img', sheet).forEach(function (img) { img.sizes = '260px'; });
 
   /* ── 2. Fill in client details from config.js ───────────────────────── */
   var waNumber = String(SITE.whatsapp || '').replace(/\D/g, ''); // "+91 98940 12345" → "919894012345"
@@ -1076,32 +1078,16 @@
       });
     }
 
-    // the first screen: the photo rises out of its arch, the shapes pop in around it, the greeting,
-    // headline, text and buttons follow, then the "Open Now" card swings into place
-    // (a page opened in a background tab skips this and shows the finished screen)
-    var intro = $$('.hero [data-intro]');
+    // the first screen's intro is pure CSS (section 25 of styles.css), so it starts with the first
+    // paint instead of waiting for this script. The shapes start floating once their CSS pop has
+    // finished: GSAP reads a shape's current scale and rotation when its tween starts, and would
+    // otherwise freeze it mid-pop (at scale 0 on a fast load)
     var shapes = $$('.hero .shape');
-    if (hero && intro.length && document.visibilityState !== 'hidden') {
-      var media = $('.hero__media');
-      var photo = $('.hero__photo');
-      var openCard = $('.open-card');
-      var copy = intro.filter(function (el) { return el !== media; });
-      var tl = gsap.timeline({
-        defaults: { ease: EASE },
-        onComplete: function () {
-          hero.classList.add('is-intro-done');
-          gsap.set(intro.concat([photo, openCard]).filter(Boolean), { clearProps: 'all' });
-          startFloating();
-        }
-      });
-      if (media) tl.set(media, { opacity: 1 }, 0);
-      if (photo) tl.fromTo(photo, { clipPath: 'inset(100% 0% 0% 0% round 999px 999px 30px 30px)', y: 30 }, { clipPath: 'inset(0% 0% 0% 0% round 999px 999px 30px 30px)', y: 0, duration: 1.2 }, .1);
-      tl.fromTo(copy, { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 1, stagger: .08 }, .2);
-      if (shapes.length) tl.fromTo(shapes, { scale: 0, rotation: '-=45' }, { scale: 1, rotation: '+=45', duration: .9, ease: 'back.out(1.8)', stagger: .09 }, .45);
-      if (openCard) tl.fromTo(openCard, { opacity: 0, y: 30, rotation: -3 }, { opacity: 1, y: 0, rotation: 0, duration: 1, ease: 'back.out(1.4)' }, .85);
-    } else if (hero) {
-      hero.classList.add('is-intro-done');
-      startFloating();
+    if (hero) {
+      var popping = shapes[0] && shapes[0].getAnimations
+        ? Promise.all(shapes.reduce(function (all, s) { return all.concat(s.getAnimations().map(function (a) { return a.finished; })); }, []))
+        : new Promise(function (done) { setTimeout(done, 1800); });
+      popping.then(startFloating, startFloating);
     }
 
     // afterwards the shapes float gently (paused while the hero is off screen) and lean away from the pointer

@@ -15,9 +15,16 @@
   <!-- EDIT: once the site has its own domain, add:
        <link rel="canonical" href="https://www.clinic-domain.in/">
        <meta property="og:url" content="https://www.clinic-domain.in/">
-       <meta property="og:image" content="https://www.clinic-domain.in/assets/img/share.jpg"> (1200 × 630, shown in WhatsApp link previews) -->
-  <meta property="og:title" content="Dental Clinic in R.S. Puram, Coimbatore | Northline Dental">
-  <meta property="og:description" content="Family dental care in R.S. Puram, Coimbatore, open 24/7. Every step explained and a written estimate before treatment. Book online or on WhatsApp.">
+       and replace og:image with the clinic's own photo, e.g. https://www.clinic-domain.in/assets/img/share.jpg (1200 × 630).
+       The og: title and description below are the WhatsApp link preview. Previews never run the page's
+       script, so in the template they are kept neutral (no clinic name or town) and demo links preview
+       well for any dentist. For a client's live site, put the clinic's name and town in both. -->
+  <meta property="og:title" content="Family Dental Care, Clearly Explained">
+  <meta property="og:description" content="See the clinic's treatments, doctors, timings and location, and book an appointment on WhatsApp in one tap.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=1200&amp;h=630&amp;q=80&amp;auto=format&amp;fit=crop">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A dentist talking with a patient">
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- Favicon: its first colour follows the theme (js/main.js) -->
@@ -26,7 +33,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://images.unsplash.com">
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <!-- Fonts: Baloo Thambi 2 (headings, English + Tamil), Figtree (text), Kalam (handwritten notes); Tamil labels use Baloo Thambi 2 Bold -->
   <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@500..800&family=Figtree:wght@400..700&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
 
@@ -224,6 +231,8 @@
       <figure class="hero__photo">
         <!-- EDIT: hero photo (portrait, about 1000 × 1250). Replace with your clinic's own photo and update the alt text. -->
         <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=1000&h=1250&q=80&auto=format&fit=crop"
+             srcset="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=600&h=750&q=72&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&h=1000&q=75&auto=format&fit=crop 800w, https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=1000&h=1250&q=80&auto=format&fit=crop 1000w"
+             sizes="(min-width: 960px) 500px, calc(100vw - 64px)"
              alt="A dentist talking with a patient (illustrative image)" width="1000" height="1250" fetchpriority="high">
       </figure>
 
@@ -411,7 +420,9 @@
         <span class="shape shape--about-dots" aria-hidden="true"></span>
         <figure class="about__media">
           <!-- EDIT: clinic photo (about 1400 × 900). Replace with your clinic's own photo and update the alt text. -->
-          <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1200&h=1000&q=80&auto=format&fit=crop" alt="A dental treatment room with a dental chair (illustrative image)" loading="lazy" width="1200" height="1000">
+          <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1200&h=1000&q=80&auto=format&fit=crop"
+             srcset="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=700&h=583&q=75&auto=format&fit=crop 700w, https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1200&h=1000&q=80&auto=format&fit=crop 1200w"
+             sizes="(min-width: 960px) 500px, calc(100vw - 54px)" alt="A dental treatment room with a dental chair (illustrative image)" loading="lazy" width="1200" height="1000">
         </figure>
       </div>
 
@@ -471,37 +482,49 @@
     <ul class="gallery-grid">
       <li>
         <figure>
-          <img src="https://images.unsplash.com/photo-1643660527070-03ed14b41677?w=800&h=600&q=75&auto=format&fit=crop" alt="A consultation room with a dental chair (sample photo)" width="800" height="600" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1643660527070-03ed14b41677?w=800&h=600&q=75&auto=format&fit=crop"
+             srcset="https://images.unsplash.com/photo-1643660527070-03ed14b41677?w=600&h=450&q=72&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1643660527070-03ed14b41677?w=800&h=600&q=75&auto=format&fit=crop 800w"
+             sizes="(min-width: 760px) clamp(260px, 30vw, 420px), 78vw" alt="A consultation room with a dental chair (sample photo)" width="800" height="600" loading="lazy">
           <figcaption>Consultation Room</figcaption>
         </figure>
       </li>
       <li>
         <figure>
-          <img src="https://images.unsplash.com/photo-1629909614456-6b1c5c94cecc?w=800&h=600&q=75&auto=format&fit=crop" alt="A waiting area with sofas and a plant (sample photo)" width="800" height="600" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1629909614456-6b1c5c94cecc?w=800&h=600&q=75&auto=format&fit=crop"
+             srcset="https://images.unsplash.com/photo-1629909614456-6b1c5c94cecc?w=600&h=450&q=72&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1629909614456-6b1c5c94cecc?w=800&h=600&q=75&auto=format&fit=crop 800w"
+             sizes="(min-width: 760px) clamp(260px, 30vw, 420px), 78vw" alt="A waiting area with sofas and a plant (sample photo)" width="800" height="600" loading="lazy">
           <figcaption>Reception</figcaption>
         </figure>
       </li>
       <li>
         <figure>
-          <img src="https://images.unsplash.com/photo-1629909615184-74f495363b67?w=800&h=600&q=75&auto=format&fit=crop" alt="A dental treatment room with a dental chair (sample photo)" width="800" height="600" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1629909615184-74f495363b67?w=800&h=600&q=75&auto=format&fit=crop"
+             srcset="https://images.unsplash.com/photo-1629909615184-74f495363b67?w=600&h=450&q=72&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1629909615184-74f495363b67?w=800&h=600&q=75&auto=format&fit=crop 800w"
+             sizes="(min-width: 760px) clamp(260px, 30vw, 420px), 78vw" alt="A dental treatment room with a dental chair (sample photo)" width="800" height="600" loading="lazy">
           <figcaption>Treatment Room</figcaption>
         </figure>
       </li>
       <li>
         <figure>
-          <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?w=800&h=600&q=75&auto=format&fit=crop" alt="A clean clinical room with medical equipment (sample photo)" width="800" height="600" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?w=800&h=600&q=75&auto=format&fit=crop"
+             srcset="https://images.unsplash.com/photo-1551076805-e1869033e561?w=600&h=450&q=72&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1551076805-e1869033e561?w=800&h=600&q=75&auto=format&fit=crop 800w"
+             sizes="(min-width: 760px) clamp(260px, 30vw, 420px), 78vw" alt="A clean clinical room with medical equipment (sample photo)" width="800" height="600" loading="lazy">
           <figcaption>Sterilisation Area</figcaption>
         </figure>
       </li>
       <li>
         <figure>
-          <img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=800&h=600&q=75&auto=format&fit=crop" alt="A child drawing with colour pens at a table (sample photo)" width="800" height="600" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=800&h=600&q=75&auto=format&fit=crop"
+             srcset="https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=600&h=450&q=72&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=800&h=600&q=75&auto=format&fit=crop 800w"
+             sizes="(min-width: 760px) clamp(260px, 30vw, 420px), 78vw" alt="A child drawing with colour pens at a table (sample photo)" width="800" height="600" loading="lazy">
           <figcaption>Kids Corner</figcaption>
         </figure>
       </li>
       <li data-if="equipment">
         <figure>
-          <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&h=600&q=75&auto=format&fit=crop" alt="A dentist examining dental X-ray images (sample photo)" width="800" height="600" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&h=600&q=75&auto=format&fit=crop"
+             srcset="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&h=450&q=72&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&h=600&q=75&auto=format&fit=crop 800w"
+             sizes="(min-width: 760px) clamp(260px, 30vw, 420px), 78vw" alt="A dentist examining dental X-ray images (sample photo)" width="800" height="600" loading="lazy">
           <figcaption>X-ray Room</figcaption>
         </figure>
       </li>
@@ -552,7 +575,9 @@
 
       <figure class="approach__media">
         <!-- EDIT: technology / clinic photo (about 1000 × 1250). Replace with your clinic's own photo. -->
-        <img src="https://images.unsplash.com/photo-1600170311833-c2cf5280ce49?w=1000&h=1250&q=80&auto=format&fit=crop" alt="A digital dental scan shown on a tablet (illustrative image)" loading="lazy" width="1000" height="1250">
+        <img src="https://images.unsplash.com/photo-1600170311833-c2cf5280ce49?w=1000&h=1250&q=80&auto=format&fit=crop"
+             srcset="https://images.unsplash.com/photo-1600170311833-c2cf5280ce49?w=720&h=900&q=72&auto=format&fit=crop 720w, https://images.unsplash.com/photo-1600170311833-c2cf5280ce49?w=1000&h=1250&q=80&auto=format&fit=crop 1000w"
+             sizes="(min-width: 960px) 460px, calc(100vw - 48px)" alt="A digital dental scan shown on a tablet (illustrative image)" loading="lazy" width="1000" height="1250">
         <figcaption><span data-if="equipment">Digital scans instead of messy impression trays</span><span data-if="!equipment">Every finding explained before treatment</span></figcaption>
       </figure>
     </div>
@@ -608,7 +633,9 @@
     <div class="doctor-grid contact-sheet">
       <article class="doctor">
         <figure class="doctor__photo">
-          <img src="https://images.unsplash.com/photo-1614608682850-e0d6ed316d47?w=600&h=600&q=80&auto=format&fit=crop&crop=faces" alt="Portrait of Dr. Kavya Raman" loading="lazy" width="600" height="600">
+          <img src="https://images.unsplash.com/photo-1614608682850-e0d6ed316d47?w=600&h=600&q=80&auto=format&fit=crop&crop=faces"
+             srcset="https://images.unsplash.com/photo-1614608682850-e0d6ed316d47?w=380&h=380&q=78&auto=format&fit=crop&crop=faces 380w, https://images.unsplash.com/photo-1614608682850-e0d6ed316d47?w=600&h=600&q=80&auto=format&fit=crop&crop=faces 600w"
+             sizes="180px" alt="Portrait of Dr. Kavya Raman" loading="lazy" width="600" height="600">
         </figure>
         <div class="doctor__body">
           <h3 data-site="doctorName">Dr. Kavya Raman</h3>
@@ -620,7 +647,9 @@
 
       <article class="doctor" data-if="specialists">
         <figure class="doctor__photo">
-          <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&h=600&q=80&auto=format&fit=crop&crop=faces" alt="Portrait of Dr. Vikram Sundar" loading="lazy" width="600" height="600">
+          <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&h=600&q=80&auto=format&fit=crop&crop=faces"
+             srcset="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=380&h=380&q=78&auto=format&fit=crop&crop=faces 380w, https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&h=600&q=80&auto=format&fit=crop&crop=faces 600w"
+             sizes="180px" alt="Portrait of Dr. Vikram Sundar" loading="lazy" width="600" height="600">
         </figure>
         <div class="doctor__body">
           <h3>Dr. Vikram Sundar</h3>
@@ -633,7 +662,9 @@
       <article class="doctor" data-if="specialists">
         <figure class="doctor__photo">
           <!-- sample photo: Unsplash photo-1659353888906 with its red backdrop changed to grey -->
-          <img src="assets/img/doctor-nila.jpg" alt="Portrait of Dr. Nila Prakash" loading="lazy" width="600" height="600">
+          <img src="assets/img/doctor-nila.jpg"
+             srcset="assets/img/doctor-nila-380.jpg 380w, assets/img/doctor-nila.jpg 600w"
+             sizes="180px" alt="Portrait of Dr. Nila Prakash" loading="lazy" width="600" height="600">
         </figure>
         <div class="doctor__body">
           <h3>Dr. Nila Prakash</h3>
@@ -645,7 +676,9 @@
 
       <article class="doctor" data-if="specialists">
         <figure class="doctor__photo">
-          <img src="https://images.unsplash.com/photo-1637059824899-a441006a6875?w=600&h=600&q=80&auto=format&fit=crop&crop=faces" alt="Portrait of Dr. Rohan Das" loading="lazy" width="600" height="600">
+          <img src="https://images.unsplash.com/photo-1637059824899-a441006a6875?w=600&h=600&q=80&auto=format&fit=crop&crop=faces"
+             srcset="https://images.unsplash.com/photo-1637059824899-a441006a6875?w=380&h=380&q=78&auto=format&fit=crop&crop=faces 380w, https://images.unsplash.com/photo-1637059824899-a441006a6875?w=600&h=600&q=80&auto=format&fit=crop&crop=faces 600w"
+             sizes="180px" alt="Portrait of Dr. Rohan Das" loading="lazy" width="600" height="600">
         </figure>
         <div class="doctor__body">
           <h3>Dr. Rohan Das</h3>

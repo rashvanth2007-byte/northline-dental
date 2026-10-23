@@ -157,7 +157,6 @@ input, textarea, select { caret-color: var(--brand); }
 /* ── 3. Sections ───────────────────────────────────────────────────────── */
 .section { position: relative; padding-block: var(--section); }
 .section--soft { background: var(--soft); }
-section[id] { scroll-margin-top: calc(var(--header-h) + 12px); }
 
 .section__head { max-width: 720px; margin-bottom: clamp(32px, 4vw, 52px); }
 .section__head h2 { font-size: clamp(2rem, 3.6vw, 2.9rem); font-weight: 800; }
@@ -210,7 +209,12 @@ h2 .ta::before {
   background: rgba(255, 255, 255, .97);
   transition: transform .45s var(--ease-out), box-shadow var(--fast);
 }
-@supports (backdrop-filter: blur(8px)) { .header { background: rgba(255, 255, 255, .86); backdrop-filter: saturate(1.6) blur(12px); } }
+/* the frosted glass sits on a layer behind the header, never on the header itself: a backdrop-filter
+   on .header would make it the containing block of the fixed phone menu and squash the menu to a strip */
+@supports (backdrop-filter: blur(8px)) {
+  .header { background: transparent; }
+  .header::before { content: ""; position: absolute; inset: 0; z-index: -1; background: rgba(255, 255, 255, .86); backdrop-filter: saturate(1.6) blur(12px); }
+}
 .header.is-scrolled { box-shadow: 0 1px 0 var(--line), 0 8px 24px -18px rgba(23, 32, 51, .35); }
 .header.is-tucked { transform: translateY(-100%); }
 .header__inner { height: 100%; display: flex; align-items: center; gap: 6px; }
@@ -304,6 +308,11 @@ h2 .ta::before {
 .lang-notice .btn { min-height: 44px; padding: 0 18px; }
 .lang-notice__no { min-height: 44px; padding: 0 18px; border-radius: 999px; box-shadow: inset 0 0 0 2px var(--line-strong); font-weight: 600; }
 .lang-notice__no:hover { box-shadow: inset 0 0 0 2px var(--ink); }
+@media (max-width: 559px) {
+  /* the question gets its own line and the two answers share the next, so neither wraps alone */
+  .lang-notice p { flex-basis: 100%; }
+  .lang-notice .btn, .lang-notice__no { flex: 1 1 auto; }
+}
 
 /* ── 6. Hero ───────────────────────────────────────────────────────────── */
 .hero { position: relative; overflow: hidden; padding: clamp(32px, 4.5vw, 64px) 0 clamp(96px, 10vw, 140px); background: var(--soft); }
@@ -320,7 +329,7 @@ h2 .ta::before {
 .trust { display: grid; gap: 10px; margin-top: 30px; font-size: .98rem; line-height: 1.45; }
 .trust li { display: flex; align-items: flex-start; gap: 10px; }
 .trust > li > svg { width: 20px; height: 20px; margin-top: 1px; color: var(--brand); }
-.google-badge { display: inline-flex; align-items: center; gap: 6px; font-weight: 650; color: var(--ink); text-decoration: underline; text-decoration-color: var(--s1); text-decoration-thickness: 2px; }
+.google-badge { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; margin-block: -11px; font-weight: 650; color: var(--ink); text-decoration: underline; text-decoration-color: var(--s1); text-decoration-thickness: 2px; }
 .google-badge:hover { color: var(--brand-deep); }
 .google-badge svg { width: 16px; height: 16px; }
 
@@ -458,6 +467,8 @@ h2 .ta::before {
 .chip.is-selected svg { background: rgba(255, 255, 255, .2); color: #fff; }
 
 /* shapes that carry on below the hero (behind the content, never covering it) */
+/* rows waiting to slide in sit 28px to one side; clip them so they never widen the page on phones */
+.treatments { overflow-x: hidden; overflow-x: clip; }
 .treatments::before { content: ""; position: absolute; right: 0; top: 0; width: clamp(90px, 12vw, 170px); aspect-ratio: 1; border-radius: 0 0 0 100%; background: var(--s1-soft); pointer-events: none; }
 .journey::before { content: ""; position: absolute; left: 0; top: 18%; width: clamp(50px, 6vw, 90px); height: clamp(100px, 12vw, 180px); border-radius: 0 999px 999px 0; background: var(--s2-soft); pointer-events: none; }
 .faq-section::before { content: ""; position: absolute; right: 0; top: 70px;width: clamp(110px, 12vw, 170px); aspect-ratio: 1; border-radius: 50%; border: 18px solid var(--s3-soft); pointer-events: none; }
@@ -691,7 +702,7 @@ h2 .ta::before {
 .contact-list li:nth-child(3) .icon-dot { background: var(--s3-soft); color: var(--s3-ink); }
 .contact-list__text { display: grid; min-width: 0; }
 .contact-list__text small { font-size: .86rem; color: var(--muted); }
-.contact-list__text a { font-size: 1.06rem; font-weight: 650; color: var(--ink); text-decoration: none; overflow-wrap: anywhere; }
+.contact-list__text a { display: inline-flex; align-items: center; min-height: 44px; margin-block: -8px; font-size: 1.06rem; font-weight: 650; color: var(--ink); text-decoration: none; overflow-wrap: anywhere; }
 .contact-list__text a:hover { color: var(--brand-deep); text-decoration: underline; }
 .book__hours { padding-top: 20px; border-top: 2px dashed var(--line); }
 .book__hours h3 { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; font-size: 1.25rem; }
@@ -811,6 +822,8 @@ h2 .ta::before {
   .themer.is-collapsed { padding: 0; gap: 0; }
   .themer.is-collapsed > :not(.themer__toggle) { display: none; }
   .themer { max-width: calc(100% - 24px); flex-wrap: wrap; border-radius: 26px; }
+  /* on phones the copy is left-aligned, so the demo colour picker waits at the right edge */
+  .themer { left: auto; right: 12px; }
 }
 @media (min-width: 900px) { .themer { left: 20px; bottom: 20px; } }
 @media (max-width: 359px) { .themer > span { display: none; } }
@@ -827,11 +840,31 @@ font { background: none !important; box-shadow: none !important; }
 
 /* ── 25. Motion ────────────────────────────────────────────────────────────
    Content is visible by default. With .motion (set in <head> unless the visitor
-   prefers reduced motion) the first screen waits for its short intro; if the
-   script never runs, it appears on its own after a moment. */
-.motion .hero [data-intro] { opacity: 0; animation: intro-failsafe .01s linear 2.6s forwards; }
-.motion .hero.is-intro-done [data-intro] { opacity: 1; animation: none; }
-@keyframes intro-failsafe { to { opacity: 1; } }
+   prefers reduced motion) the first screen plays a short CSS intro that starts with
+   the first paint, so it never waits for the animation scripts: the photo opens
+   upward, the copy rises, the shapes pop and the Open Now pill swings up. It uses the
+   separate translate / rotate / scale properties, so GSAP's float (which sets
+   transform) can start at once without a clash. */
+@keyframes intro-rise { from { opacity: 0; translate: 0 26px; } }
+@keyframes intro-photo {
+  from { clip-path: inset(100% 0 0 0 round 999px 999px 30px 30px); translate: 0 30px; }
+  to { clip-path: inset(0 0 0 0 round 999px 999px 30px 30px); translate: 0 0; }
+}
+@keyframes intro-pop { from { scale: 0; rotate: -45deg; } }
+@keyframes intro-swing { from { opacity: 0; translate: 0 30px; rotate: -3deg; } }
+.motion .hero__copy > [data-intro] { animation: intro-rise 1s var(--ease-out) both; }
+.motion .hero__copy > .hero__title { animation-delay: .05s; }
+.motion .hero__copy > .hero__lede { animation-delay: .13s; }
+.motion .hero__copy > .hero__actions { animation-delay: .21s; }
+.motion .hero__copy > .trust { animation-delay: .29s; }
+.motion .hero__photo { animation: intro-photo 1.2s var(--ease-out) .1s both; }
+.motion .hero .shape { animation: intro-pop .9s cubic-bezier(.34, 1.56, .64, 1) .45s both; }
+.motion .hero .shape--half { animation-delay: .54s; }
+.motion .hero .shape--ring { animation-delay: .63s; }
+.motion .hero .shape--dots { animation-delay: .72s; }
+.motion .hero .shape--plus { animation-delay: .81s; }
+.motion .note--hello, .motion .open-card { animation: intro-swing 1s cubic-bezier(.34, 1.4, .64, 1) .85s both; }
+.motion .note--hello { animation-delay: .7s; }
 
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
@@ -861,7 +894,7 @@ html.lenis, html.lenis body { height: auto; }
   .tx-card, .doctor, .step, .faq__item, .fact, .promise-card { break-inside: avoid; }
   .faq__a { grid-template-rows: 1fr !important; }
   .faq__a > * { opacity: 1 !important; }
-  .motion .hero [data-intro] { opacity: 1 !important; animation: none !important; }
+  .motion .hero, .motion .hero * { animation: none !important; }
   .motion h2 .ta::before { clip-path: none !important; }
   a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .8em; color: #444; }
   .socials a::after, .btn::after, .google-badge::after { content: none !important; }
