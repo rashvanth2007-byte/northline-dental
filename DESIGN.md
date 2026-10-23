@@ -138,14 +138,11 @@ components:
     backgroundColor: "{colors.canvas}"
     rounded: "{rounded.lg}"
     padding: "clamp(22px, 3vw, 32px)"
-  slot:
-    backgroundColor: "{colors.sage-wash}"
+  open-card:
+    backgroundColor: "{colors.canvas}"
     textColor: "{colors.navy-ink}"
-    rounded: "{rounded.field}"
-    padding: "10px 12px"
-  slot-selected:
-    backgroundColor: "{colors.sage-brand}"
-    textColor: "{colors.canvas}"
+    rounded: "{rounded.pill}"
+    padding: "12px 26px 12px 12px"
 ---
 
 # Design System: Northline
@@ -175,7 +172,7 @@ This is a reusable template. A new clinic changes the theme (sage, clay, mist or
 A white and navy base with one calm action colour per theme and three cheerful shape colours kept for decoration.
 
 ### Primary
-- **Action colour (theme)**: the only colour for primary buttons, selected chips and slots, active nav, links on hover, the open FAQ ring, focus outlines and the treatments band. Each theme sets four values: the action colour, a deeper shade for hover and coloured text, a pale tint for icon circles and active states, and a very pale wash for soft sections.
+- **Action colour (theme)**: the only colour for primary buttons, selected chips, active nav, links on hover, the open FAQ ring, focus outlines and the treatments band. Each theme sets four values: the action colour, a deeper shade for hover and coloured text, a pale tint for icon circles and active states, and a very pale wash for soft sections.
   - **Sage Leaf Green** (default): `sage-brand`, `sage-brand-deep`, `sage-tint`, `sage-wash`.
   - **Clay Terracotta**: `clay-brand`, `clay-brand-deep`, `clay-tint`, `clay-wash`.
   - **Mist Blue**: `mist-brand`, `mist-brand-deep`, `mist-tint`, `mist-wash`.
@@ -238,11 +235,11 @@ Decorative shapes sit behind content at section edges (quarter-circles, half-pil
 
 ## Elevation & Depth
 
-Mostly flat, with soft navy-tinted shadows for things that float above the page: the hero photo, the slots card, the quick-action strip, cards, menus and the booking form. Shadows always pair with a 1px hairline ring, so edges stay crisp on white. Depth also comes from overlap: the slots card over the photo's foot, the quick strip over the hero, the address card over the map.
+Mostly flat, with soft navy-tinted shadows for things that float above the page: the hero photo, the Open Now pill, the quick-action strip, cards, menus and the booking form. Shadows always pair with a 1px hairline ring, so edges stay crisp on white. Depth also comes from overlap: the Open Now pill over the photo's foot, the quick strip over the hero, the address card over the map.
 
 ### Shadow Vocabulary
 - **Low** (`box-shadow: 0 1px 2px rgba(23,32,51,.05), 0 12px 30px -18px rgba(23,32,51,.22)`): doctor cards, gallery photos, the price card, the map, the greeting note.
-- **High** (`box-shadow: 0 2px 6px rgba(23,32,51,.06), 0 30px 60px -30px rgba(23,32,51,.34)`): hero and about photos, slots card, quick strip, step cards, form, menus.
+- **High** (`box-shadow: 0 2px 6px rgba(23,32,51,.06), 0 30px 60px -30px rgba(23,32,51,.34)`): hero and about photos, Open Now pill, quick strip, step cards, form, menus.
 - **Button glow** (`box-shadow: 0 10px 22px -12px` in the deep action colour): primary buttons only.
 
 ### Named Rules
@@ -250,7 +247,7 @@ Mostly flat, with soft navy-tinted shadows for things that float above the page:
 
 ## Shapes
 
-Round everywhere. Buttons, chips, nav links, badges and the mobile bar are full pills (999px). Cards use 22px or 30px corners, inputs and slot buttons 16px, small menus 18px. Photos get shaped frames: the hero and why-us photos are arches (full round top, 30px bottom), the about photo has one big 180px corner, gallery photos alternate one 120px corner, doctor portraits are circles with a white ring over an offset tinted circle. Icons sit in soft circles (44, 52 or 64px) tinted in the action colour or a shape colour, cycling in order down a list.
+Round everywhere. Buttons, chips, nav links, badges and the mobile bar are full pills (999px). Cards use 22px or 30px corners, inputs 16px, small menus 18px. Photos get shaped frames: the hero and why-us photos are arches (full round top, 30px bottom), the about photo has one big 180px corner, gallery photos alternate one 120px corner, doctor portraits are circles with a white ring over an offset tinted circle. Icons sit in soft circles (44, 52 or 64px) tinted in the action colour or a shape colour, cycling in order down a list.
 
 The decorative set is fixed: filled circles, half-circles, rings (12 to 18px stroke), dot patches (18px grid), a plus mark, and the squiggle. Lists use 2px dashed hairline dividers.
 
@@ -269,7 +266,7 @@ Friendly, solid and big enough for any thumb.
 - **State:** hover lifts 2px with a navy ring and tilts the icon; selected fills with the action colour and white text. Concern chips preselect the booking form.
 
 ### Cards / Containers
-Cards are kept for real objects: doctors, first-visit steps, the slots card, the booking form and contact panel, the price card, the address card.
+Cards are kept for real objects: doctors, first-visit steps, the booking form and contact panel, the price card, the address card.
 - **Corner Style:** 22px (doctors) or 30px (steps, form, panels).
 - **Background:** white, or the theme wash for the address card; the reviews panel uses the slot 3 soft colour, the emergency panel a pale coral.
 - **Shadow Strategy:** hairline ring plus Low or High shadow (see Elevation).
@@ -281,14 +278,14 @@ Treatments, clinic facts and promises are open lists, not cards: each row is an 
 ### Inputs / Fields
 - **Style:** white, 52px tall, 16px corners, 2px strong-hairline border, navy text, 600 to 650 weight labels above.
 - **Focus:** border turns the action colour with a 4px tint halo.
-- **Error:** error-red border and label with a faint red halo. Fields filled from a chip or slot get the marigold soft background and border.
+- **Error:** error-red border and label with a faint red halo.
 
 ### Navigation
 - **Desktop:** white translucent header (76px) with logo (circle mark with a marigold dot), pill nav links (hover in the wash, active in the tint with deep text), language menu, call link and a primary Book button. Hides on scroll down, returns on scroll up; a thin action-to-marigold progress line runs along the top.
 - **Mobile:** two-line menu button opens a full-screen panel of 58px pill links in Baloo Thambi 2, tinted in rotation; a bottom pill bar holds Book (filled), Call, WhatsApp and Directions.
 
-### Next Free Slots Card
-A white 24px card overlapping the hero photo's foot, with a live dot, a title and three slot buttons (wash, marigold soft, slot 3 soft). Hover lifts a slot and rings it in the action colour; selected fills with the action colour and pre-fills the form. A handwritten note sits under it.
+### Open Now Pill
+A white full pill overlapping the hero photo's foot: a 56px marigold-soft clock circle, the live status in Baloo Thambi 2 700 (1.25rem) with the pulsing live dot, and a Call link in the deep action colour with a marigold underline (44px tap target). On phones it sits under the photo, pulled up 40px over its foot. Hidden when the opening hours are invalid.
 
 ### Handwritten Note
 A Kalam line in the deep action colour with a curved arrow in the slot 2 colour. The hero greeting is the one boxed version: a white tilted speech-bubble with a Tamil word in Baloo Thambi 2.

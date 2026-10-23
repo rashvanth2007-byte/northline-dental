@@ -9,7 +9,7 @@ Plain HTML, CSS and JavaScript: no build step, no frameworks. Open `index.html` 
 ### Page sections
 
 - **Header**: round tooth logo (with a small marigold dot), navigation (Treatments, About Us, Doctors, First Visit, Find Us, FAQs), language menu, a phone icon and a pill "Book Appointment" button.
-- **Hero**: a handwritten "Vanakkam! வணக்கம்", the headline, Book and WhatsApp buttons and three trust lines (registration, area and landmark, a link to Google reviews). On the right, the photo sits in an arch with a marigold circle, a coral half-circle, a sky ring, a dot patch and a plus sign around it, and the white **Next Free Slots** card overlaps its foot. The card shows the live open/closed status and three slot buttons worked out from `hours` in `js/config.js` (with a "please call to confirm" note); tapping one fills in the booking form's date, time and a "Preferred slot" note, then scrolls to the form. A handwritten note under the card says so.
+- **Hero**: a handwritten "Vanakkam! வணக்கம்", the headline, Book and WhatsApp buttons and three trust lines (registration, area and landmark, a link to Google reviews). On the right, the photo sits in an arch with a marigold circle, a coral half-circle, a sky ring, a dot patch and a plus sign around it, and a white **Open Now** pill overlaps its foot: a clock circle, the live open/closed status worked out from `hours` in `js/config.js` ("Open Now · 24 Hours", "Open Now · Closes 8:30 PM", "Closed · Opens 9:00 AM tomorrow") and a Call link with the clinic's number.
 - **Quick actions**: a white strip overlapping the hero's lower edge: Book Appointment, Call Us, WhatsApp, Get Directions.
 - **Treatments band**: a tilted brand-coloured band of treatment names that slides sideways as you scroll (it never moves on its own). Keep its list in step with the treatment cards.
 - **Emergency strip** (`#urgent`): "Tooth Pain or a Dental Emergency?" with a Tamil subtitle, Call Now and WhatsApp Us, and the hospital note for facial swelling, fever or trouble swallowing or breathing. The sample clinic is open 24/7; reword it for normal hours.
@@ -32,7 +32,7 @@ Plain HTML, CSS and JavaScript: no build step, no frameworks. Open `index.html` 
 
 Smooth and lively, but calm: Lenis smooth scrolling on mouse and trackpad (phones keep native scrolling), and GSAP ScrollTrigger for the rest.
 
-- **First screen**: the photo rises out of its arch, the shapes pop in around it, the greeting, headline and buttons follow, and the slots card swings into place. Afterwards the shapes float gently (paused when the hero is off screen) and lean slightly away from the mouse.
+- **First screen**: the photo rises out of its arch, the shapes pop in around it, the greeting, headline and buttons follow, and the Open Now pill swings into place. Afterwards the shapes float gently (paused when the hero is off screen) and lean slightly away from the mouse.
 - **Scrolling**: the little squiggle under each section heading draws itself; treatment rows slide in from their side, chips slide in as a row, doctors' portraits pop into their circles; the treatments band slides; the gallery row slides sideways; the first-visit cards stack; the about and promise photos drift slightly inside their frames; numbers count up.
 - **Buttons**: the main Book buttons lean towards the pointer; cards lift on hover.
 - Content is visible by default: if the animation scripts fail to load, or a scroll trigger is ever missed, everything still shows (a safety check reveals anything left hidden after a moment). Visitors who prefer reduced motion get no movement at all.
@@ -61,8 +61,7 @@ One file controls everything that repeats across the page:
 | `features` | Switch the page's claims on or off: `specialists` (a team of MDS specialists; `false` = one dentist), `equipment` (microscope, 3D scans, Class B autoclave, sedation) and `prices` (off by default: no rates anywhere; turn it on to show the Fees section, the consultation fee in the FAQs and the "starting fees" line). See "Fitting the clinic" below. |
 | `phone`, `phoneRaw`, `whatsapp`, `email` | Every call, WhatsApp and email link, including the quick actions, the mobile bar and the floating WhatsApp button |
 | `addressLine1/2`, `landmark`, `mapQuery` | The "How to Find Us" card and map, the footer address, every "Get Directions" link |
-| `hours` | Hours table (days with the same hours share a line, e.g. "Every day · Open 24 hours"), the live "Open now / Closed now" status, "Today: …" on the location card and the hero's "Next Free Slots". The sample clinic is open 24/7: every day is `open: "00:00", close: "24:00"`. For normal hours, enter the real times (e.g. `"09:00"`–`"20:30"`) and everything switches automatically |
-| `slotLeadMinutes`, `slotLengthMinutes`, `slotHours` | How the "Next Free Slots" buttons are worked out: the first slot is at least `slotLeadMinutes` away, slots are `slotLengthMinutes` apart, and only inside `slotHours` (sample `09:00`–`21:00`), so a 24/7 clinic never offers a midnight check-up. Use `slotHours: null` to offer any open hour. It is not a live diary; the card says "please call to confirm" |
+| `hours` | Hours table (days with the same hours share a line, e.g. "Every day · Open 24 hours"), the live "Open now / Closed now" status, "Today: …" on the location card and the hero's Open Now pill. The sample clinic is open 24/7: every day is `open: "00:00", close: "24:00"`. For normal hours, enter the real times (e.g. `"09:00"`–`"20:30"`) and everything switches automatically |
 | `social` | Footer icons (leave a link empty to hide its icon); `google` is also the Google trust badge and the "Read Reviews on Google" button |
 | `languages`, `offerTranslation` | Header language menu and the first-visit "view in your language?" question (see below) |
 | `formEndpoint` | Leave empty to send bookings to WhatsApp, or paste a Formspree URL to receive them by email |
@@ -84,7 +83,7 @@ Search for `EDIT:` to jump to each block:
 - The Fees price list
 - The four commitments, the first-visit steps, FAQs and payment options (UPI apps, cards, cash)
 - Clinic facts: languages spoken (sample: Tamil, English, Malayalam), lift / wheelchair access and parking
-- The note under the clinic hours (sample: open 24 hours, Sundays and holidays too; call first on Pongal and Deepavali). If the clinic is **not** open round the clock, also reword the 24/7 lines in the slots card note ("for an emergency, call any time"), emergency strip, first-visit step ("at any hour"), emergency FAQ, hours note, meta and `og:description` (search for "24" and "any hour"), and remove the "Night (After 8:30)" Preferred Time option if the clinic is closed then. The JSON-LD opening hours follow `js/config.js` on their own
+- The note under the clinic hours (sample: open 24 hours, Sundays and holidays too; call first on Pongal and Deepavali). If the clinic is **not** open round the clock, also reword the 24/7 lines in the emergency strip, first-visit step ("at any hour"), emergency FAQ, hours note, meta and `og:description` (search for "24" and "any hour"), and remove the "Night (After 8:30)" Preferred Time option if the clinic is closed then. The JSON-LD opening hours follow `js/config.js` on their own
 - Doctors: photo, name, degrees, speciality, years, Tamil Nadu Dental Council registration number (sample "TNDC Reg. No. 0000"), memberships and a factual special-interest line
 - The "Information reviewed by …" lines under the treatments intro and the FAQ intro (dentist's name, degree, registration number and date). The name follows `doctorName` in demo links automatically; ", MDS" shows only while `specialists` is on.
 - The "In Practice For 14+ years" fact (`data-count` is the number that counts up), kept in step with `foundingDate` in the JSON-LD and the first doctor's years
@@ -217,13 +216,23 @@ Patients remember a broken promise more than a modest one. Write only what the f
 - [ ] Alt texts and captions describe the clinic's own rooms once the stock photos are replaced (until then the alt texts end in "(sample photo)" or "(illustrative image)")
 - [ ] All stock photos replaced with the client's own
 - [ ] Title, meta description, sharing tags (canonical, `og:url`, `og:image`) and the JSON-LD block in `<head>` updated (`url`, `image`, `geo`, `postalCode`, services)
-- [ ] `slotHours` in `js/config.js` matches when the clinic books routine visits
+- [ ] `sitemap.xml` and `robots.txt` remade for the clinic's own domain (see "Sitemap and robots.txt" below)
 - [ ] The map in "How to Find Us" shows the clinic itself (set `mapQuery` to the exact name of its Google listing if it doesn't), and the parking and access lines are true
 - [ ] A building-front photo with the signboard added as the first gallery photo
 - [ ] The handwritten notes still say things that are true for this clinic (languages, fees, booking)
 - [ ] `timeZone` in `js/config.js` set if the clinic is outside India
 - [ ] `privacy.html` and `terms.html` reviewed by the clinic (they are samples) and their "Last updated" dates set
 - [ ] Booking form tested on a phone (it should open WhatsApp with the details filled in, including "Appointment for"), plus the mobile bar, a concern chip and the emergency strip's Call and WhatsApp buttons
+
+### Sitemap and robots.txt
+
+The site ships with a `sitemap.xml` and `robots.txt` made for the template's demo address. For each client, remake both for the clinic's own domain with the studio's sitemap tool (it works for any of the studio's sites):
+
+```
+python ~/.claude/skills/tn-dental-clinic-site/scripts/make_sitemap.py <client-folder> https://www.clinic-domain.in/
+```
+
+It lists every page that should appear in Google (the privacy and terms pages are marked `noindex`, so they stay out, and `demo.html` is always left out), dates each one from the file, and writes a `robots.txt` that blocks `demo.html` and points to the sitemap. Run it again after adding a page or moving domains, then submit the sitemap in Google Search Console. Crawlers only read `robots.txt` at the root of a domain, so on a GitHub Pages project address (`user.github.io/repo/`) the sitemap has to be submitted in Search Console by hand.
 
 ### Advertising rules for dentists
 
@@ -245,6 +254,8 @@ js/vendor/        QR code library used by demo.html (MIT licence)
 privacy.html      sample privacy policy
 terms.html        sample terms of use
 assets/img/       put client photos here
+sitemap.xml       pages for search engines (remake per client with make_sitemap.py)
+robots.txt        crawler rules: blocks demo.html, points to the sitemap
 PRODUCT.md        who the template is for and the rules it keeps (for design work)
 DESIGN.md         the design system: colours, type, shapes, components, motion
 reports/          page-quality report and the SEO topic plan (first pages for a client)

@@ -29,7 +29,7 @@ A clinic site written for Tamil Nadu families (Vanakkam greeting, short Tamil la
 ## Capabilities and Constraints
 
 - Plain HTML, CSS and JavaScript, no build step. Small libraries from a CDN are fine.
-- Feature switches must keep working: `specialists`, `equipment`, `prices` (`data-if` / `data-if="!x"`), themes (`sage`, `clay`, `mist`, `olive` plus the demo theme switcher), demo-link fields (`data-site`, `data-site-href`, `data-sample`), live open/closed status, hours table, next-slot card, concern chips that preselect the booking form, FAQ accordion, language menu and first-visit language prompt, mobile action bar, floating WhatsApp button.
+- Feature switches must keep working: `specialists`, `equipment`, `prices` (`data-if` / `data-if="!x"`), themes (`sage`, `clay`, `mist`, `olive` plus the demo theme switcher), demo-link fields (`data-site`, `data-site-href`, `data-sample`), live open/closed status, hours table, Open Now status card, concern chips that preselect the booking form, FAQ accordion, language menu and first-visit language prompt, mobile action bar, floating WhatsApp button.
 - Sample clinic is open 24/7. The copy must stay honest about what the clinic can promise.
 - All page content stays (every section, fact and feature). Layout, order and grouping may change.
 
