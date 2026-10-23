@@ -38,10 +38,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@500..800&family=Figtree:wght@400..700&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/styles.css">
+  <!-- config.js loads here (it is small) so the feature switches apply before the first paint -->
+  <script src="js/config.js"></script>
   <script>
-    document.documentElement.classList.add('js');
-    // the first screen animates in; visitors who prefer less motion see it at once
-    if (!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) document.documentElement.classList.add('motion');
+    (function (root) {
+      root.classList.add('js');
+      // the first screen animates in; visitors who prefer less motion see it at once
+      if (!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) root.classList.add('motion');
+      // feature switches as classes (f-specialists, f-equipment, f-prices), demo-link overrides
+      // included, so CSS hides the switched-off wording at once; main.js then removes it
+      var site = window.SITE || {}, f = site.features || {}, q = null;
+      try { if (site.demoLinks) q = new URLSearchParams(location.search); } catch (e) {}
+      ['specialists', 'equipment', 'prices'].forEach(function (k) {
+        var v = q && q.get(k), on = v !== null && v !== undefined ? !/^(0|off|no|false)$/i.test(v) : f[k] !== false;
+        if (on) root.classList.add('f-' + k);
+      });
+    })(document.documentElement);
   </script>
 
   <!-- EDIT: local business details for Google. js/main.js refreshes the name, phone, email, street, city,
@@ -1074,12 +1086,13 @@
 <!-- Used by the language menu (Google Translate) -->
 <div id="google_translate_element" hidden></div>
 
-<script src="js/config.js"></script>
 <script src="js/demo.js"></script>
-<!-- Smooth scrolling and scroll animation (the page works without them if they fail to load) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<!-- main.js runs before the animation libraries, so the clinic's details and switches are in place
+     before anything shows; it starts the motion once they have loaded -->
 <script src="js/main.js"></script>
+<!-- Smooth scrolling and scroll animation (the page works without them if they fail to load) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
 </body>
 </html>

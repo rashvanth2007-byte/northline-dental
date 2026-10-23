@@ -109,6 +109,11 @@ input, textarea, select { caret-color: var(--brand); }
 :focus-visible { outline: 3px solid var(--brand); outline-offset: 3px; border-radius: 6px; }
 [tabindex="-1"]:focus { outline: none; }
 [hidden] { display: none !important; }
+/* feature switches before main.js runs: the <head> script marks the switches that are on
+   (f-specialists, f-equipment, f-prices), so the wording for the other setting never shows */
+.js:not(.f-specialists) [data-if="specialists"], .f-specialists [data-if="!specialists"],
+.js:not(.f-equipment) [data-if="equipment"], .f-equipment [data-if="!equipment"],
+.js:not(.f-prices) [data-if="prices"], .f-prices [data-if="!prices"] { display: none !important; }
 
 .visually-hidden {
   position: absolute !important; width: 1px; height: 1px; overflow: hidden;
@@ -338,7 +343,7 @@ h2 .ta::before {
 .hero__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 55% 30%; }
 /* the shapes around the photo */
 .shape--sun { z-index: 0; right: -10px; top: 2%; width: 44%; aspect-ratio: 1; border-radius: 50%; background: var(--s1); }
-.shape--half { z-index: 2; left: -6px; top: 42%; width: 96px; height: 48px; border-radius: 96px 96px 0 0; background: var(--s2); transform: rotate(-90deg); transform-origin: 50% 100%; }
+.shape--half { z-index: 2; left: -6px; top: 42%; width: 96px; height: 48px; border-radius: 96px 96px 0 0; background: var(--s2); --base: rotate(-90deg); transform: var(--base); transform-origin: 50% 100%; }
 .shape--ring { z-index: 0; left: 2%; top: 4%; width: 86px; height: 86px; border-radius: 50%; border: 12px solid var(--s3); }
 .shape--dots { z-index: 0; right: -24px; bottom: 18%; width: 132px; height: 132px; background-image: radial-gradient(var(--brand) 2.4px, transparent 2.8px); background-size: 18px 18px; opacity: .55; }
 .shape--plus { z-index: 2; right: 6%; top: 46%; width: 30px; height: 30px; background: #fff; -webkit-mask: var(--m-plus) center / contain no-repeat; mask: var(--m-plus) center / contain no-repeat; }
@@ -858,11 +863,21 @@ font { background: none !important; box-shadow: none !important; }
 .motion .hero__copy > .hero__actions { animation-delay: .21s; }
 .motion .hero__copy > .trust { animation-delay: .29s; }
 .motion .hero__photo { animation: intro-photo 1.2s var(--ease-out) .1s both; }
-.motion .hero .shape { animation: intro-pop .9s cubic-bezier(.34, 1.56, .64, 1) .45s both; }
-.motion .hero .shape--half { animation-delay: .54s; }
-.motion .hero .shape--ring { animation-delay: .63s; }
-.motion .hero .shape--dots { animation-delay: .72s; }
-.motion .hero .shape--plus { animation-delay: .81s; }
+/* after the pop, each shape floats gently on its own rhythm; transform animations run on the
+   compositor, so this costs almost nothing on a phone. --base keeps a shape's own rotation. */
+@keyframes shape-float {
+  from { transform: var(--base, translate(0)) translateY(0) rotate(0deg); }
+  to { transform: var(--base, translate(0)) translateY(var(--fy, -12px)) rotate(var(--fr, -6deg)); }
+}
+.motion .hero .shape {
+  animation: intro-pop .9s cubic-bezier(.34, 1.56, .64, 1) .45s both,
+             shape-float var(--fd, 3s) ease-in-out 1.4s infinite alternate both;
+}
+.motion .hero .shape--half { --fy: 10px; --fr: 6deg; --fd: 3.6s; animation-delay: .54s, 1.5s; }
+.motion .hero .shape--ring { --fd: 4.2s; animation-delay: .63s, 1.6s; }
+.motion .hero .shape--dots { --fy: 10px; --fr: 6deg; --fd: 4.8s; animation-delay: .72s, 1.7s; }
+.motion .hero .shape--plus { --fd: 5.4s; animation-delay: .81s, 1.8s; }
+.motion .hero.is-offscreen .shape { animation-play-state: paused; }
 .motion .note--hello, .motion .open-card { animation: intro-swing 1s cubic-bezier(.34, 1.4, .64, 1) .85s both; }
 .motion .note--hello { animation-delay: .7s; }
 

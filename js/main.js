@@ -9,12 +9,10 @@
   var root = document.documentElement;
   var mq = function (q) { return window.matchMedia ? window.matchMedia(q) : { matches: false }; };
   var reduceMotion = mq('(prefers-reduced-motion: reduce)').matches;
-  // GSAP, ScrollTrigger and Lenis come from a CDN; without them the page simply doesn't animate
-  var gsap = window.gsap;
-  var ScrollTrigger = window.ScrollTrigger;
-  var canAnimate = !!(gsap && ScrollTrigger) && !reduceMotion;
-  if (!canAnimate) root.classList.remove('motion'); // show the hero at once instead of waiting for its intro
-  var lenis = null; // smooth scrolling (section 18)
+  // GSAP, ScrollTrigger and Lenis come from a CDN and load after this file (deferred), so the clinic's
+  // details and switches are in place before anything shows; motion starts once they arrive (section 17)
+  var gsap = null, ScrollTrigger = null;
+  var lenis = null; // smooth scrolling (section 17)
   var $ = function (s, c) { return (c || document).querySelector(s); };
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
   var store = {
@@ -1049,8 +1047,12 @@
   /* ── 17. Motion: smooth scrolling, soft reveals, the photo row, the step cards ── */
   // Everything below needs GSAP + ScrollTrigger and is skipped for visitors who prefer reduced motion.
   // Content is visible without it; each animation starts from a hidden state it sets itself.
-  if (canAnimate) (function () {
+  // It runs at DOMContentLoaded, by which time the deferred CDN scripts have run (or failed).
+  function startMotion() {
+    gsap = window.gsap; ScrollTrigger = window.ScrollTrigger;
+    if (!gsap || !ScrollTrigger || reduceMotion) { root.classList.remove('motion'); return; }
     gsap.registerPlugin(ScrollTrigger);
+    var coarse = mq('(pointer: coarse)').matches;
     var EASE = 'expo.out';
     function visible(el) { return !el.hidden && el.offsetParent !== null; }
 
@@ -1078,28 +1080,18 @@
       });
     }
 
-    // the first screen's intro is pure CSS (section 25 of styles.css), so it starts with the first
-    // paint instead of waiting for this script. The shapes start floating once their CSS pop has
-    // finished: GSAP reads a shape's current scale and rotation when its tween starts, and would
-    // otherwise freeze it mid-pop (at scale 0 on a fast load)
+    // the first screen's intro and the shapes' gentle float are pure CSS (section 25 of styles.css):
+    // the intro starts with the first paint, and the float runs off the main thread on phones.
+    // Here the float pauses while the hero is off screen, and on a mouse the shapes lean away
+    // from the pointer through the separate "translate" property, so it never fights the float.
     var shapes = $$('.hero .shape');
-    if (hero) {
-      var popping = shapes[0] && shapes[0].getAnimations
-        ? Promise.all(shapes.reduce(function (all, s) { return all.concat(s.getAnimations().map(function (a) { return a.finished; })); }, []))
-        : new Promise(function (done) { setTimeout(done, 1800); });
-      popping.then(startFloating, startFloating);
+    if (hero && shapes.length) {
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (en) { hero.classList.toggle('is-offscreen', !en[0].isIntersecting); }).observe(hero);
+      }
+      leanShapes();
     }
-
-    // afterwards the shapes float gently (paused while the hero is off screen) and lean away from the pointer
-    function startFloating() {
-      if (!shapes.length) return;
-      var floats = shapes.map(function (s, i) {
-        return gsap.to(s, { y: i % 2 ? 10 : -12, rotation: '+=' + (i % 2 ? 6 : -6), duration: 3 + i * .6, ease: 'sine.inOut', yoyo: true, repeat: -1 });
-      });
-      ScrollTrigger.create({
-        trigger: hero, start: 'top bottom', end: 'bottom top',
-        onToggle: function (self) { floats.forEach(function (f) { if (self.isActive) f.resume(); else f.pause(); }); }
-      });
+    function leanShapes() {
       if (!mq('(hover: hover) and (pointer: fine)').matches) return;
       // the pointer moves the shapes through the separate CSS "translate" property, so it never fights the float
       var depth = shapes.map(function (s, i) { return 12 + (i % 3) * 9; });
@@ -1144,21 +1136,21 @@
     if (dealt.length) {
       gsap.set(dealt, { opacity: 0, x: function (i) { return i % 2 ? 28 : -28; } });
       ScrollTrigger.batch(dealt, {
-        start: 'top 94%', once: true,
+        start: 'top bottom-=10', once: true,
         onEnter: function (batch) { gsap.to(batch, { opacity: 1, x: 0, duration: .8, ease: EASE, stagger: .07, overwrite: true, clearProps: 'transform,opacity' }); }
       });
     }
     // the concern chips slide in from the left, quickly, as a row
     var chipRow = $$('.concern-chips .chip');
     if (chipRow.length) {
-      gsap.fromTo(chipRow, { opacity: 0, x: -18 }, { opacity: 1, x: 0, duration: .5, ease: 'power3.out', stagger: .04, clearProps: 'transform,opacity', scrollTrigger: { trigger: chipRow[0].parentNode, start: 'top 92%', once: true } });
+      gsap.fromTo(chipRow, { opacity: 0, x: -18 }, { opacity: 1, x: 0, duration: .5, ease: 'power3.out', stagger: .04, clearProps: 'transform,opacity', scrollTrigger: { trigger: chipRow[0].parentNode, start: 'top bottom-=10', once: true } });
     }
     // the doctors' portraits pop into their coloured circles
     var portraits = $$('.doctor__photo img').filter(visible);
     if (portraits.length) {
       gsap.set(portraits, { scale: .55, opacity: 0 });
       ScrollTrigger.batch(portraits, {
-        start: 'top 92%', once: true,
+        start: 'top bottom-=10', once: true,
         onEnter: function (batch) { gsap.to(batch, { scale: 1, opacity: 1, duration: .8, ease: 'back.out(1.7)', stagger: .1, overwrite: true, clearProps: 'transform,opacity' }); }
       });
     }
@@ -1184,7 +1176,9 @@
     }
 
     // first-visit steps: each card slides up over the one before, which eases back a little
-    var stepCards = $$('[data-steps] .step');
+    // (touch screens skip the scaling and the photo drift below: on budget phones these two
+    // scroll-linked effects cost the most frames, and the cards still stack without them)
+    var stepCards = coarse ? [] : $$('[data-steps] .step');
     stepCards.forEach(function (step, i) {
       var next = stepCards[i + 1];
       if (!next) return;
@@ -1195,7 +1189,7 @@
     });
 
     // the about and "why choose us" photos drift gently inside their frames
-    $$('.about__media img, .approach__media img').forEach(function (img) {
+    if (!coarse) $$('.about__media img, .approach__media img').forEach(function (img) {
       gsap.fromTo(img, { yPercent: -5, scale: 1.12 }, { yPercent: 5, scale: 1.12, ease: 'none', scrollTrigger: { trigger: img.parentNode, start: 'top bottom', end: 'bottom top', scrub: true } });
     });
 
@@ -1235,5 +1229,7 @@
       });
       watched.forEach(function (el) { guard.observe(el); });
     }
-  })();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', startMotion);
+  else startMotion();
 })();
